@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "lts/*"
+  - '8'
+  - '6'
+  - '4'
+  - '10'
+before_install:
+  - curl -L https://unpkg.com/@pnpm/self-installer | node
+install:
+  - pnpm install
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Lint"
+      script: pnpm run lint
+    - stage: "Deploy"
+      name: "Semantic Release"
+      script:
+        - pnpx semantic-release
